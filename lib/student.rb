@@ -12,25 +12,17 @@ class Student
   end
 
   def self.create_table
-    sql = <<-SQL
-    CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY, name TEXT, grade INTEGER)
-    SQL
-    DB[:conn].execute(sql)
+    run_sql('CREATE TABLE IF NOT EXISTS students (id INTEGER PRIMARY KEY, name TEXT, grade INTEGER)')
   end
 
   def self.drop_table
-    sql = <<-SQL
-    DROP TABLE students
-    SQL
-    DB[:conn].execute(sql)
+    run_sql('DROP TABLE students')
   end
 
   def save
-    sql = <<-SQL
-    INSERT INTO students (name, grade) VALUES (?, ?)
-    SQL
-    DB[:conn].execute(sql, self.name, self.grade)
-    @id = DB[:conn].execute('SELECT MAX(id) from students').flatten[0]
+    run_sql('INSERT INTO students (name, grade) VALUES (?, ?)',
+    self.name, self.grade)
+    @id = run_sql('SELECT MAX(id) from students').flatten[0]
   end
 
   def self.create(hash)
@@ -39,14 +31,12 @@ class Student
     student
   end
 
-  def sql(string, *args)
+  def run_sql(string, *args)
     DB[:conn].execute(string, *args)
   end
 
-  def self.sql(string, *args)
+  def self.run_sql(string, *args)
     DB[:conn].execute(string, *args)
   end
-
-
 
 end
