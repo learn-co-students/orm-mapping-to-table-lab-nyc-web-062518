@@ -39,13 +39,13 @@ class Student
     student
   end
 
-  # def sql(string)
-  #   DB[:conn].execute(string)
-  # end
-  #
-  # def self.sql(string)
-  #   DB[:conn].execute(string)
-  # end
+  def sql(string, *args)
+    DB[:conn].execute(string, *args)
+  end
+
+  def self.sql(string, *args)
+    DB[:conn].execute(string, *args)
+  end
 
 
 
