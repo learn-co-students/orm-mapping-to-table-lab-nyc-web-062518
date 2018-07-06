@@ -1,3 +1,5 @@
+
+
 class Student
 
   # Remember, you can access your database connection anywhere in this class
@@ -41,4 +43,5 @@ class Student
       student.save
       student
    end
+
 end
